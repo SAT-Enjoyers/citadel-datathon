@@ -13,6 +13,7 @@ units = {
 URL = 'https://companiesmarketcap.com/%s/marketcap/'
 OUTPUT_UNIT = 'M'
 OUTPUT_DIR = 'udataset/market_cap.csv'
+START_YEAR = 2010
 
 names = {
     "QSR": "rbi",
@@ -79,6 +80,10 @@ def get_data(ticker):
         texts = [cell.text.strip() for cell in cells]
         year = texts[0]
         market_cap = texts[1]
+
+        # Check if data point is useful
+        if int(year) < START_YEAR:
+            continue
 
         # Convert market cap to a standard unit
         market_cap = convert_market_cap_value(market_cap)
