@@ -15,11 +15,14 @@ OUTPUT_DIR = 'udataset/unemployment_by_state.csv'
 SEASONALLY_ADJUSTED = False
 START_YEAR = 2010
 
+
 def get_abbreviations():
     df_abbrev = pd.read_csv("geo/state_abbreviations.csv")[:-4]
     return df_abbrev.set_index('Abbreviation')['State'].to_dict()
 
+
 def fix_puerto_rico(data):
+    # Linear interpolation for two missing Puerto Rico values
     for i, item in enumerate(data):
         if item[1] == '.':
             if item[0].startswith('2020-03'):
@@ -27,32 +30,35 @@ def fix_puerto_rico(data):
             if item[0].startswith('2020-04'):
                 data[i][1] = '9.0'
 
-def get_data(state: str, state_full_name: str):
-    print(state_full_name)
-    
+
+def get_data(state_code: str, state_name: str):
     # Make a response to the website
-    response = rq.get(URL.format(state))
-    
+    response = rq.get(URL.format(state_code))
+
     # Turn response into list of lists
     data = response.text.split('\n')
     data = [item.split(',') for item in data][1:-1]
-    
-    data = [item for item in data if int(item[0][:4]) >= START_YEAR]
-    
-    if state == 'PR':
+
+    # Filter by year range
+    data = [item for item in data if START_YEAR <= int(item[0][:4])]
+
+    # Fix Puerto Rico's data points
+    if state_code == 'PR':
         fix_puerto_rico(data)
-    
-    data = [[state_full_name.lower(), item[0][:7], float(item[1])] for item in data]
-    
-    
+
+    # Format raw data in row into the table
+    data = [[state_name.lower(), item[0][:7], float(item[1])] for item in data]
+
     return data
+
 
 if __name__ == '__main__':
     abbreviations = get_abbreviations()
     data = []
-    
+
     for state, state_full_name in abbreviations.items():
         data += get_data(state, state_full_name)
 
-    df = pd.DataFrame(data=data, columns=['State', 'YearMonth', 'UnemploymentRate'])
+    df = pd.DataFrame(data=data,
+                      columns=['State', 'YearMonth', 'UnemploymentRate'])
     df.to_csv(OUTPUT_DIR, index=False)

@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 URL = 'https://companiesmarketcap.com/%s/marketcap/'
-OUTPUT_UNIT = 'M'
 OUTPUT_DIR = 'udataset/market_cap.csv'
-START_YEAR = 2010
+START_YEAR = 2000
+END_YEAR = 2024
 
-names = {
+NAMES = {
     "QSR": "rbi",
     "ALG": "alamo-group",
     "SBUX": "starbucks",
@@ -40,45 +40,49 @@ names = {
     "COKE": "coca-cola-consolidated",
 }
 
+
 def get_data(ticker):
-    # Make a response to the website
-    response = rq.get(URL % names[ticker])
-    
-    # Get the soup
+    # Make a response to the website and get the soup
+    response = rq.get(URL % NAMES[ticker])
     soup = BeautifulSoup(response.text, 'html.parser')
-    
+
     # Find the underlying data in the html script tag
-    script_tag = soup.find('script', text=re.compile('data = \['))
-    data_string = re.search('data = (\[.*?\]);', script_tag.string).group(1)
+    script_tag = soup.find('script', string=re.compile(r'data = \['))
+    data_string = re.search(r'data = (\[.*?\]);', script_tag.string).group(1)
 
     # Parse the string as JSON to convert to a Python list
     raw_data = json.loads(data_string)
-    
+
     data = []
     for item in raw_data:
         # Convert timestamp to date and format it
         date = datetime.fromtimestamp(item['d'])
+
+        # Check year of data point
+        if not START_YEAR <= date.year <= END_YEAR:
+            continue
+
+        # Format date for output
         year_month = f"{date.year}-{str(date.month).rjust(2,'0')}"
-        
+
         # Only include the first value of each month
         if data and year_month == data[-1][0]:
             continue
-        
+
         # Extract market cap
         market_cap = int(item['m']) * 100_000
-        
+
         data.append([year_month, ticker, market_cap])
-    
+
     return data
 
 
 if __name__ == '__main__':
-
     # List of all data
     data = []
 
     # Fetch market cap data for all companies in ticker dict
-    for ticker in names.keys():
+    for ticker in NAMES.keys():
         print(ticker)
         data += get_data(ticker)
 
