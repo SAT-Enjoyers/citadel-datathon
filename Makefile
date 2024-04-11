@@ -7,6 +7,7 @@ data:
 	jupyter nbconvert --to notebook --execute $(DIR)stocks.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)acs_unemployment.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)state_data.ipynb
+	jupyter nbconvert --to notebook --execute $(DIR)nutrition_physical_activity.ipynb
 	python scraping/market_cap.py
 	rm $(DIR)*.nbconvert.ipynb
 
