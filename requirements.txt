@@ -114,6 +114,7 @@ urllib3==2.2.1
 visions==0.7.6
 wcwidth==0.2.13
 webencodings==0.5.1
+wget==3.2
 widgetsnbextension==4.0.10
 wordcloud==1.9.3
 xgboost==1.6.2
