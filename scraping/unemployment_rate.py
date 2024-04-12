@@ -58,6 +58,7 @@ if __name__ == '__main__':
     data = []
 
     for state, state_full_name in abbreviations.items():
+        print(state_full_name)
         data += get_data(state, state_full_name)
 
     df = pd.DataFrame(data=data,
