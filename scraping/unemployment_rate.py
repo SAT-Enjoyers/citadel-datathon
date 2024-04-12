@@ -4,7 +4,7 @@ import pandas as pd
 URL = '''https://fred.stlouisfed.org/graph/fredgraph.csv?bgcolor=%23e1e9f0
 &chart_type=line&drp=0&fo=open%20sans&graph_bgcolor=%23ffffff&height=450
 &mode=fred&recession_bars=on&txtcolor=%23444444&ts=12&tts=12&width=1318&nt=0
-&thu=0&trc=0&show_legend=yes&show_axis_titles=yes&show_tooltip=yes&id={}URN
+&thu=0&trc=0&show_legend=yes&show_axis_titles=yes&show_tooltip=yes&id={}UR{}
 &scale=left&cosd=1976-01-01&coed=2024-02-01&line_color=%234572a7
 &link_values=false&line_style=solid&mark_type=none&mw=3&lw=2&ost=-99999
 &oet=99999&mma=0&fml=a&fq=Monthly&fam=avg&fgst=lin&fgsnd=2020-02-01
@@ -33,7 +33,8 @@ def fix_puerto_rico(data):
 
 def get_data(state_code: str, state_name: str):
     # Make a response to the website
-    response = rq.get(URL.format(state_code))
+    response = rq.get(URL.format(
+        state_code, "N" if not SEASONALLY_ADJUSTED else ""))
 
     # Turn response into list of lists
     data = response.text.split('\n')
