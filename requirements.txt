@@ -137,3 +137,4 @@ wordcloud==1.9.3
 xgboost==1.6.2
 xlrd==2.0.1
 ydata-profiling==4.7.0
+pingouin==0.5.4
