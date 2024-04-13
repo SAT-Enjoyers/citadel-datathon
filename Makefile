@@ -36,3 +36,4 @@ scrape:
 	python scraping/market_cap.py
 	python scraping/unemployment_rate.py
 	python scraping/population.py
+	python scraping/hourly_earnings.py
