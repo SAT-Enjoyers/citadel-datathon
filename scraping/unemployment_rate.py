@@ -17,7 +17,7 @@ START_YEAR = 2010
 
 
 def get_abbreviations():
-    df_abbrev = pd.read_csv("geo/state_abbreviations.csv")[:-4]
+    df_abbrev = pd.read_csv("eda/geo/state_abbreviations.csv")[:-4]
     return df_abbrev.set_index('Abbreviation')['State'].to_dict()
 
 

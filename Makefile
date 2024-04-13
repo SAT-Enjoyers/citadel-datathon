@@ -9,7 +9,6 @@ data:
 	jupyter nbconvert --to notebook --execute $(DIR)acs.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)commodities.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)health_data.ipynb
-	jupyter nbconvert --to notebook --execute $(DIR)meat_weights.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)meat.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)national_unemployment_month.ipynb
 	jupyter nbconvert --to notebook --execute $(DIR)wealth_data.ipynb
