@@ -75,6 +75,7 @@ optree==0.11.0
 packaging==24.0
 pandas==2.2.1
 pandas-dq==1.29
+pandas-flavor==0.6.0
 pandocfilters==1.5.1
 panel==0.14.4
 param==1.13.0
@@ -83,6 +84,7 @@ patsy==0.5.6
 pexpect==4.9.0
 phik==0.12.4
 pillow==10.3.0
+pingouin==0.5.4
 platformdirs==4.2.0
 plotly==5.20.0
 prompt-toolkit==3.0.43
@@ -117,6 +119,7 @@ soupsieve==2.5
 stack-data==0.6.3
 statsmodels==0.14.1
 sweetviz==2.3.1
+tabulate==0.9.0
 tenacity==8.2.3
 textblob==0.18.0.post0
 threadpoolctl==3.4.0
@@ -134,7 +137,7 @@ webencodings==0.5.1
 wget==3.2
 widgetsnbextension==4.0.10
 wordcloud==1.9.3
+xarray==2024.3.0
 xgboost==1.6.2
 xlrd==2.0.1
 ydata-profiling==4.7.0
-pingouin==0.5.4

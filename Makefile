@@ -15,8 +15,16 @@ data:
 	rm -f $(DIR)*.nbconvert.ipynb
 
 eda:
-	jupyter nbconvert --to notebook --execute $(EDADIR)health_clustering.ipynb
-	jupyter nbconvert --to notebook --execute $(EDADIR)wealth_clustering.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)clustering_health.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)clustering_wealth.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)wealth_interpolation.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)analyse_meat_hourly_rate.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)analyse_stocks_month_state.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)analyse_stocks_month_stock.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)analyse_stocks.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)meat_extrapolation_model.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)sarimax_hourly_wage.ipynb
+	jupyter nbconvert --to notebook --execute $(EDADIR)sarimax_meat.ipynb
 	jupyter nbconvert --to notebook --execute $(EDADIR)wealth_interpolation.ipynb
 	rm -f $(EDADIR)*.nbconvert.ipynb
 
